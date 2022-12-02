@@ -1,0 +1,35 @@
+
+
+source src_CombAssets
+{
+        type                    = mysql
+
+
+        sql_host                = localhost
+        sql_user                = developer
+        sql_pass                = Catailyst@2020
+        sql_db                  = catalyst
+        sql_port                = 3306  # optional, default is 3306
+
+
+        sql_query               = \
+                SELECT * \
+                FROM Final_Asset_List_Source_B
+}
+
+
+
+
+index ind_CombAssets
+{
+        source                  = src_CombAssets
+        path                    = /var/lib/sphinxsearch/data/test_CombAssets_data
+        min_infix_len           = 2
+        charset_type            = utf-8
+        expand_keywords         = 1
+        min_word_len            = 2
+        charset_table           = 0..9, A..Z->a..z, _, a..z, \
+                                        U+410..U+42F->U+430..U+44F, U+430..U+44F, U+401->U+451, U+451
+        ignore_chars            = U+002D,U+AD,U+0026,U+002F,U+002E,U+0022
+
+}
